@@ -37,8 +37,10 @@ export default function Home() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-grid bg-radial-fade" />
         <div className="absolute top-1/2 left-1/2 -z-10 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 blur-[120px]" />
-        <div className="animate-blob absolute top-24 left-10 -z-10 h-64 w-64 rounded-full bg-blue-500/20 blur-[100px]" />
-        <div className="animate-blob absolute top-40 right-10 -z-10 h-64 w-64 rounded-full bg-purple-500/20 blur-[100px] [animation-delay:4s]" />
+        <div className="animate-blob absolute top-24 left-10 -z-10 h-64 w-64 rounded-full bg-[#8b2c2c]/20 blur-[100px]" />
+        <div className="animate-blob absolute top-10 left-1/2 -z-10 h-64 w-64 -translate-x-1/2 rounded-full bg-[#5a1414]/20 blur-[100px] [animation-delay:2s]" />
+        <div className="animate-blob absolute top-32 right-10 -z-10 h-64 w-64 rounded-full bg-[#8b2c2c]/20 blur-[100px] [animation-delay:3s]" />
+        <div className="animate-blob absolute top-40 right-10 -z-10 h-64 w-64 rounded-full bg-[#5a1414]/20 blur-[100px] [animation-delay:4s]" />
 
         <div className="mx-auto max-w-6xl px-6 py-28 md:py-36">
           <div className="animate-fade-up mx-auto max-w-3xl text-center">
