@@ -1,65 +1,78 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useUser } from "@/context/UserContext";
-
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/services", label: "Services" },
-  { href: "/profile", label: "Profile" },
-  { href: "/contact", label: "Contact" },
-];
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Heart } from 'lucide-react';
+import { useFavorite } from '@/context/FavoriteContext';
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { name, submitted } = useUser();
+  const { favorites } = useFavorite();
+
+  // Helper untuk menentukan status aktif menu
+  const isActive = (path) => pathname === path;
 
   return (
-    <header className="sticky top-4 z-50 mx-auto w-full max-w-4xl px-4">
-      <nav className="flex items-center justify-between gap-4 rounded-full border border-white/10 bg-background/70 px-4 py-2 shadow-lg shadow-black/20 backdrop-blur-xl">
-        <Link
-          href="/"
-          className="shrink-0 text-sm font-bold tracking-tight"
-        >
+    <header className="w-full flex justify-center py-4 fixed top-0 z-50">
+      <nav className="flex items-center justify-between px-6 py-3 bg-red-950/80 backdrop-blur-md border border-red-900/50 rounded-full shadow-lg max-w-4xl w-full mx-4">
+        
+        {/* Logo / Brand */}
+        <Link href="/" className="font-bold text-white tracking-wider">
           TAHFIDZ.AI
         </Link>
 
-        <div className="hidden items-center gap-1 text-sm text-muted-foreground sm:flex">
-          {links.map((link) => {
-            const isActive =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname?.startsWith(link.href);
+        {/* Menu Navigasi Utama */}
+        <div className="hidden md:flex items-center space-x-6 text-sm text-red-200">
+          <Link 
+            href="/" 
+            className={`transition-colors ${isActive('/') ? 'text-white font-medium' : 'hover:text-white'}`}
+          >
+            Home
+          </Link>
+          <Link 
+            href="/about" 
+            className={`transition-colors ${isActive('/about') ? 'text-white font-medium' : 'hover:text-white'}`}
+          >
+            About
+          </Link>
+          <Link 
+            href="/services" 
+            className={`transition-colors ${isActive('/services') ? 'text-white font-medium' : 'hover:text-white'}`}
+          >
+            Services
+          </Link>
+          <Link 
+            href="/profile" 
+            className={`transition-colors ${isActive('/profile') ? 'text-white font-medium' : 'hover:text-white'}`}
+          >
+            Profile
+          </Link>
+          <Link 
+            href="/contact" 
+            className={`transition-colors ${isActive('/contact') ? 'text-white font-medium' : 'hover:text-white'}`}
+          >
+            Contact
+          </Link>
+          <Link 
+            href="/favorites" 
+            className={`transition-colors ${isActive('/favorites') ? 'text-white font-medium' : 'hover:text-white'}`}
+          >
+            Favorites
+          </Link>
+        </div>
 
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "rounded-full px-3 py-1.5 transition-colors hover:text-foreground",
-                  isActive && "bg-foreground/10 text-foreground"
-                )}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+        {/* Tombol Aksi Kanan (Favorites + Get in Touch) */}
+        <div className="flex items-center space-x-3">
+
+          {/* Tombol CTA */}
+          <Link
+            href="/contact"
+            className="bg-red-900 hover:bg-red-800 text-white text-sm font-medium px-4 py-2 rounded-full transition-colors border border-red-700/50"
+          >
+            Get in touch
+          </Link>
         </div>
-        
-        <div className="flex items-center gap-3">
-            {submitted && <span className="text-sm">Hi, {name} 👋</span>}
-            <Link
-              href="/contact"
-              className={cn(buttonVariants({ size: "sm" }), "rounded-full")}
-            >
-              Get in touch
-            </Link>
-        </div>
+
       </nav>
     </header>
   );

@@ -1,70 +1,36 @@
-"use client";
-
-import { Heart } from "lucide-react";
-
-import { Button, buttonVariants } from "@/components/ui/button";
-import { useFavorite } from "@/context/FavoriteContext";
-import { cn } from "@/lib/utils";
-
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+'use client';
+import { Heart } from 'lucide-react';
+import { useFavorite } from '@/context/FavoriteContext';
 
 export default function UserCard({ user }) {
-  const { isFavorite, addFavorite, removeFavorite } = useFavorite();
-  const favorited = isFavorite(user.id);
+  const { favorites, toggleFavorite } = useFavorite();
 
-  const initials = user.name
-    .split(" ")
-    .map((part) => part[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
+  // Cek apakah user ini sedang difavoritkan
+  const isFavorite = favorites.some((fav) => fav.id === user.id);
 
   return (
-    <Card className="group border border-white/10 bg-foreground/[0.03] transition-all hover:-translate-y-1 hover:border-foreground/20 hover:shadow-xl hover:shadow-black/20">
-      <CardHeader>
-        <div className="flex items-center gap-3">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary/40 to-primary/10 text-sm font-semibold">
-            {initials}
-          </div>
-          <CardTitle>{user.name}</CardTitle>
-        </div>
-      </CardHeader>
+    <div className="bg-red-950/40 border border-red-900/50 rounded-2xl p-6 relative shadow-md flex flex-col justify-between">
+      
+      {/* Tombol Favorit */}
+      <button
+        onClick={() => toggleFavorite(user)}
+        className="absolute top-4 right-4 p-2 rounded-full bg-red-900/40 hover:bg-red-800 transition-colors border border-red-800/60"
+        aria-label="Favorite button"
+      >
+        <Heart
+          className={`w-5 h-5 transition-colors ${
+            isFavorite ? 'fill-red-500 text-red-500' : 'text-white'
+          }`}
+        />
+      </button>
 
-      <CardContent>
-        <p className="text-sm text-muted-foreground">{user.email}</p>
+      {/* Informasi User */}
+      <div>
+        <h3 className="text-xl font-bold mb-1">{user.name}</h3>
+        <p className="text-red-200/70 text-sm mb-4">{user.role || 'Member'}</p>
+        <p className="text-sm text-gray-300">{user.bio || 'Tidak ada deskripsi.'}</p>
+      </div>
 
-        <p className="mt-1 text-sm text-muted-foreground">
-          {user.company.name}
-        </p>
-
-        <div className="mt-4 flex gap-2">
-          <a
-            href={`https://jsonplaceholder.typicode.com/users/${user.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(buttonVariants(), "flex-1 rounded-full")}
-          >
-            View Profile
-          </a>
-
-          <Button
-            variant={favorited ? "secondary" : "outline"}
-            className="rounded-full"
-            aria-pressed={favorited}
-            onClick={() =>
-              favorited ? removeFavorite(user.id) : addFavorite(user)
-            }
-          >
-            <Heart className={favorited ? "fill-red-500 text-red-500" : ""} />
-            {favorited ? "Favourite" : "Add Favourite"}
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+    </div>
   );
 }
