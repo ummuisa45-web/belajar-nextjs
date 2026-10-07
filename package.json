@@ -6,12 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "test": "jest"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
     "@hugeicons/core-free-icons": "^4.3.5",
     "@hugeicons/react": "^1.1.10",
+    "@supabase/supabase-js": "^2.117.2",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.4.0",
     "lucide-react": "^1.48.0",
@@ -27,11 +28,5 @@
     "eslint-config-next": "16.3.6",
     "jest": "^30.5.2",
     "tailwindcss": "^4"
-  },
-"scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "test": "jest"
   }
 }

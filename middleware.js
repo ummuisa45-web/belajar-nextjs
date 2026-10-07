@@ -16,13 +16,7 @@ export function middleware(request) {
     return NextResponse.redirect(new URL("/maintenance", request.url));
   }
 
-  // 3. Fitur Auth Guard (Proteksi Halaman /favorites)
-  if (url.pathname.startsWith("/favorites")) {
-    const token = request.cookies.get("token");
-    if (!token) {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-  }
+  // Proteksi /favorites sudah dihilangkan, sehingga halaman bisa diakses secara bebas
 
   return NextResponse.next();
 }

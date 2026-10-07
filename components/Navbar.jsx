@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useUser } from "@/context/UserContext";
-import { useFavorite } from "@/context/FavoriteContext"; // <-- Gunakan useFavorite (tanpa 's')
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -19,7 +18,6 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const { name, submitted } = useUser();
-  const { favorites } = useFavorite(); // <-- Gunakan useFavorite (tanpa 's')
 
   return (
     <header className="sticky top-4 z-50 mx-auto w-full max-w-4xl px-4">
@@ -51,16 +49,6 @@ export default function Navbar() {
               </Link>
             );
           })}
-          
-          <Link
-            href="/favorites"
-            className={cn(
-              "rounded-full px-3 py-1.5 transition-colors font-medium text-white hover:text-foreground",
-              pathname?.startsWith("/favorites") && "bg-foreground/10 text-foreground"
-            )}
-          >
-            Favorite ({favorites?.length || 0})
-          </Link>
         </div>
         
         <div className="flex items-center gap-3">
